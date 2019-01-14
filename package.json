@@ -15,7 +15,9 @@
   "author": "Edgard Zavarezzi",
   "license": "MIT",
   "dependencies": {
-    "pixi.js": "^4.7.1"
+    "gsap": "^2.0.2",
+    "pixi.js": "^4.7.1",
+    "stats.js": "^0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
@@ -24,7 +26,9 @@
     "@babel/preset-es2017": "^7.0.0-beta.40",
     "@babel/preset-stage-3": "^7.0.0-beta.40",
     "@babel/preset-typescript": "^7.0.0-beta.40",
+    "@types/gsap": "^1.20.0",
     "@types/pixi.js": "^4.7.2",
+    "@types/stats": "^0.16.30",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "8.0.5",
     "del-cli": "^1.1.0",

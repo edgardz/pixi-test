@@ -1,0 +1,17 @@
+# Global
+.DS_Store
+*.log*
+
+# IDEs
+.vscode
+.idea
+sketch
+
+# Node & Npm
+node_modules
+
+# Builds
+/build
+
+# Dot Env
+.env

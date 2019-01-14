@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "jsx": "react",
+    "skipLibCheck": true
+  },
+  "include": ["./app/**/*.ts", "./app/types/**/*.ts", "./node_modules/@types/**/*.ts"],
+  "files": ["app/main.ts"]
+}

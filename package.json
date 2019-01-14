@@ -1,0 +1,39 @@
+{
+  "name": "pixi-ts-webpack",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app/index.ts",
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.develop.js --mode development --progress --colors --inline",
+    "build": "del-cli 'build/**/*' && webpack --config ./webpack.production.js --mode production --progress --profile --bail",
+    "build:serve": "npm run build && superstatic ./build --port 8080 --host localhost"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgardz/pixi-ts-webpack.git"
+  },
+  "author": "Edgard Zavarezzi",
+  "license": "MIT",
+  "dependencies": {
+    "pixi.js": "^4.7.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/polyfill": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/preset-es2017": "^7.0.0-beta.40",
+    "@babel/preset-stage-3": "^7.0.0-beta.40",
+    "@babel/preset-typescript": "^7.0.0-beta.40",
+    "@types/pixi.js": "^4.7.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "8.0.5",
+    "del-cli": "^1.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "raw-loader": "^1.0.0",
+    "superstatic": "^6.0.4",
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.11"
+  }
+}

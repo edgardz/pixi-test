@@ -58,11 +58,24 @@ export default class CardsScene extends BaseScene {
 
       this.stats = new Stats(this.app);
 
-      setTimeout(this.moveTopCard, 500);
+      this.timer = setTimeout(this.moveTopCard, 500);
+
+      document.addEventListener('visibilitychange', this.onVisibility);
     });
   }
 
+  onVisibility = () => {
+    clearTimeout(this.timer);
+    if (document.visibilityState !== 'hidden') {
+      this.timer = setTimeout(this.moveTopCard, 500);
+    }
+  };
+
   moveTopCard = () => {
+    if (document.visibilityState === 'hidden') {
+      return;
+    }
+
     const containerA = this.toRight ? this.leftPile : this.rightPile;
     const containerB = this.toRight ? this.rightPile : this.leftPile;
 
@@ -84,7 +97,10 @@ export default class CardsScene extends BaseScene {
       card['moving'] = false;
     });
 
+    clearTimeout(this.timer);
+
     if (lastCard) {
+      // reverse direction
       this.toRight = !this.toRight;
       this.timer = setTimeout(() => {
         this.pileContainer.swapChildren(containerA, containerB);
@@ -97,7 +113,6 @@ export default class CardsScene extends BaseScene {
 
   public resize() {
     super.resize();
-
     const pileContainerMaxWidth = this.cardWidth * 3.5;
     const pileContainerMaxHeight = this.totalSprites * this.offset + this.cardHeight;
     this.pileContainer.position.set(
@@ -114,6 +129,7 @@ export default class CardsScene extends BaseScene {
     removeAndDestroyAllChildren(this.leftPile, options);
     removeAndDestroyAllChildren(this.rightPile, options);
     removeAndDestroyAllChildren(this.pileContainer, options);
+    document.removeEventListener('visibilitychange', this.onVisibility);
     super.destroy(options);
   }
 }

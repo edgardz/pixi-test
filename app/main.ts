@@ -1,4 +1,4 @@
-import { Application, Container } from 'pixi.js';
+import { Application, Container, ticker } from 'pixi.js';
 
 import BaseScene from './scenes/BaseScene';
 import MenuScene from './scenes/MenuScene';

@@ -35,8 +35,8 @@ export default class DecoratedTextScene extends BaseScene {
       this.icons = Object.keys(this.spriteSheet.textures).map(key => this.spriteSheet.textures[key]);
       this.richText = new DecoratedText();
       this.interval = setInterval(this.randomize, 2000);
-      this.addChild(this.richText);
       this.randomize();
+      this.addChild(this.richText);
     });
   }
 

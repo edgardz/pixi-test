@@ -10,6 +10,7 @@ export default class CloseButton extends Container {
 
     this.buttonMode = true;
     this.interactive = true;
+    this.cacheAsBitmap = true;
 
     this.graphics = new Graphics();
     this.graphics.lineStyle(4, colors.gray, 1);

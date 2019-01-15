@@ -35,14 +35,14 @@ export default class ParticlesScene extends BaseScene {
   }
 
   emitParticle = () => {
-    const x = this.rendererSize.x / 2;
-    const y = this.rendererSize.y / 2;
+    const x = this.rendererSize.width / 2;
+    const y = this.rendererSize.height / 2;
 
     const particle = new extras.AnimatedSprite(this.animationFrames);
     particle.animationSpeed = 1.4 / this.time;
     particle.anchor.set(0.5, 1);
     particle.alpha = 0;
-    particle.width = particle.height = Math.min(this.rendererSize.x, this.rendererSize.y);
+    particle.width = particle.height = Math.min(this.rendererSize.width, this.rendererSize.height);
     particle.position.set(x, y + particle.height / 2);
     particle.blendMode = BLEND_MODES.ADD;
     particle.gotoAndPlay(Math.random() * this.animationFrames.length);
@@ -64,8 +64,8 @@ export default class ParticlesScene extends BaseScene {
 
   public resize() {
     super.resize();
-    this.bg.width = this.rendererSize.x;
-    this.bg.height = this.rendererSize.y;
+    this.bg.width = this.rendererSize.width;
+    this.bg.height = this.rendererSize.height;
   }
 
   public destroy(options) {

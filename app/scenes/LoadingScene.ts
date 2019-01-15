@@ -38,8 +38,8 @@ export default class LoadingScene extends BaseScene {
     super.resize();
 
     this.copy.position.set(
-      this.rendererSize.x / 2 - this.copy.width / 2,
-      this.rendererSize.y / 2 - this.copy.height / 2
+      this.rendererSize.width / 2 - this.copy.width / 2,
+      this.rendererSize.height / 2 - this.copy.height / 2
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Container, Application, Point } from 'pixi.js';
+import { Container, Application, Point, Rectangle } from 'pixi.js';
 
 import MainApplication from '../main';
 
@@ -8,7 +8,7 @@ import CloseButton from '../components/CloseButton';
 export default class BaseScene extends Container {
   app: MainApplication;
   closeButton: CloseButton;
-  rendererSize: Point;
+  rendererSize: Rectangle;
 
   constructor(app, showCloseButton = true) {
     super();
@@ -30,7 +30,12 @@ export default class BaseScene extends Container {
 
   setRendererSize = () => {
     const { renderer } = this.app;
-    this.rendererSize = new Point(renderer.width / renderer.resolution, renderer.height / renderer.resolution);
+    this.rendererSize = new Rectangle(
+      0,
+      0,
+      renderer.width / renderer.resolution,
+      renderer.height / renderer.resolution
+    );
   };
 
   public resize() {
@@ -38,7 +43,7 @@ export default class BaseScene extends Container {
 
     if (this.closeButton) {
       this.removeChild(this.closeButton);
-      this.closeButton.x = this.rendererSize.x - this.closeButton.width - 10;
+      this.closeButton.x = this.rendererSize.width - this.closeButton.width - 10;
       this.closeButton.y = 10;
       this.addChild(this.closeButton);
     }

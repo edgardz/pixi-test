@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -50,6 +51,18 @@ module.exports = {
       template: 'app/index.html',
       chunks: ['vendor', 'app'],
       chunksSortMode: 'manual'
+    }),
+
+    new ImageminPlugin({
+      test: /\.(jpe?g|gif|svg)$/i
+    }),
+
+    new ImageminPlugin({
+      test: /\.png$/i,
+      pngquant: {
+        quality: '78-98',
+        verbose: true
+      }
     })
   ],
 

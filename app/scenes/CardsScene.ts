@@ -101,8 +101,8 @@ export default class CardsScene extends BaseScene {
     const pileContainerMaxWidth = this.cardWidth * 3.5;
     const pileContainerMaxHeight = this.totalSprites * this.offset + this.cardHeight;
     this.pileContainer.position.set(
-      this.rendererSize.x / 2 - pileContainerMaxWidth / 2,
-      this.rendererSize.y / 2 - pileContainerMaxHeight / 2
+      this.rendererSize.width / 2 - pileContainerMaxWidth / 2,
+      this.rendererSize.height / 2 - pileContainerMaxHeight / 2
     );
   }
 

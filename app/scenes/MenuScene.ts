@@ -42,8 +42,8 @@ export default class MenuScene extends BaseScene {
     });
 
     this.buttonContainer.position.set(
-      this.rendererSize.x / 2 - this.buttonContainer.width / 2,
-      this.rendererSize.y / 2 - this.buttonContainer.height / 2
+      this.rendererSize.width / 2 - this.buttonContainer.width / 2,
+      this.rendererSize.height / 2 - this.buttonContainer.height / 2
     );
   }
 

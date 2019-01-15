@@ -3,6 +3,7 @@ import { Application, Container } from 'pixi.js';
 import BaseScene from './scenes/BaseScene';
 import MenuScene from './scenes/MenuScene';
 import CardsScene from './scenes/CardsScene';
+import LoadingScene from './scenes/LoadingScene';
 import RichTextScene from './scenes/RichTextScene';
 import ParticlesScene from './scenes/ParticlesScene';
 
@@ -16,6 +17,7 @@ export default class MainApplication extends Application {
   scenes = {
     menu: MenuScene,
     cards: CardsScene,
+    loading: LoadingScene,
     richText: RichTextScene,
     particles: ParticlesScene
   };
@@ -34,7 +36,7 @@ export default class MainApplication extends Application {
     this.sceneContainer = new Container();
     this.stage.addChild(this.sceneContainer);
 
-    this.setActiveScene(this.scenes.menu);
+    this.setActiveScene(this.scenes.loading);
   }
 
   setActiveScene = Scene => {

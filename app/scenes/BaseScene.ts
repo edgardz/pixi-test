@@ -20,19 +20,27 @@ export default class BaseScene extends Container {
 
       this.addChild(this.closeButton);
     }
+
+    this.setRendererSize();
   }
 
   close = () => {
     this.app.setActiveScene(this.app.scenes.menu);
   };
 
-  public resize() {
+  setRendererSize = () => {
     const { renderer } = this.app;
     this.rendererSize = new Point(renderer.width / renderer.resolution, renderer.height / renderer.resolution);
+  };
+
+  public resize() {
+    this.setRendererSize();
 
     if (this.closeButton) {
+      this.removeChild(this.closeButton);
       this.closeButton.x = this.rendererSize.x - this.closeButton.width - 10;
       this.closeButton.y = 10;
+      this.addChild(this.closeButton);
     }
   }
 

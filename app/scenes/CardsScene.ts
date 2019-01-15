@@ -1,4 +1,4 @@
-import { particles, Sprite, Texture, Container } from 'pixi.js';
+import { loader, particles, Sprite, Texture, Container, Spritesheet } from 'pixi.js';
 import { TweenMax, Power1, Linear } from 'gsap';
 
 import BaseScene from './BaseScene';
@@ -11,15 +11,17 @@ export default class CardsScene extends BaseScene {
   leftPile: particles.ParticleContainer;
   rightPile: particles.ParticleContainer;
   pileContainer: Container;
+  spriteSheet: Spritesheet;
 
-  timer: number;
+  timer: any;
   stats: Stats;
 
   totalSprites: number = 144;
   toRight: boolean = true;
   offset: number = 3;
   speed: number = 2;
-  size: number = 80;
+  cardWidth: number = 70;
+  cardHeight: number = 95;
 
   constructor(app) {
     super(app);
@@ -37,24 +39,27 @@ export default class CardsScene extends BaseScene {
     this.pileContainer = new Container();
     this.pileContainer.interactiveChildren = false;
 
-    for (var i = 0; i < this.totalSprites; i++) {
-      const card = new Sprite(Texture.WHITE);
-      card.tint = Math.floor(Math.random() * 0xffffff);
-      card.width = this.size;
-      card.height = this.size * 1.4;
-      card.position.set(0, this.offset * i);
-      card['moving'] = false;
-      this.leftPile.addChild(card);
-    }
+    this.spriteSheet = new Spritesheet(loader.resources['cards'].texture.baseTexture, require('../assets/cards.json'));
+    this.spriteSheet.parse(() => {
+      const textures = Object.keys(this.spriteSheet.textures).map(key => this.spriteSheet.textures[key]);
+      for (var i = 0; i < this.totalSprites; i++) {
+        const card = new Sprite(textures[i % textures.length]);
+        card.width = this.cardWidth;
+        card.height = this.cardHeight;
+        card.position.set(0, this.offset * i);
+        card['moving'] = false;
+        this.leftPile.addChild(card);
+      }
 
-    this.pileContainer.addChild(this.leftPile);
-    this.pileContainer.addChild(this.rightPile);
+      this.pileContainer.addChild(this.leftPile);
+      this.pileContainer.addChild(this.rightPile);
 
-    this.addChild(this.pileContainer);
+      this.addChild(this.pileContainer);
 
-    this.moveTopCard();
+      this.stats = new Stats(this.app);
 
-    this.stats = new Stats(this.app);
+      setTimeout(this.moveTopCard, 500);
+    });
   }
 
   moveTopCard = () => {
@@ -66,7 +71,7 @@ export default class CardsScene extends BaseScene {
     const i = this.totalSprites - baseStack.length;
     const card = baseStack[baseStack.length - 1];
     const lastCard = baseStack.length === 1;
-    const containerOffset = this.toRight ? this.size * 2.5 : 0;
+    const containerOffset = this.toRight ? this.cardWidth * 2.5 : 0;
 
     card['moving'] = true;
     TweenMax.to(card.position, this.speed, {
@@ -93,8 +98,8 @@ export default class CardsScene extends BaseScene {
   public resize() {
     super.resize();
 
-    const pileContainerMaxWidth = this.size * 3.5;
-    const pileContainerMaxHeight = this.totalSprites * this.offset + this.size;
+    const pileContainerMaxWidth = this.cardWidth * 3.5;
+    const pileContainerMaxHeight = this.totalSprites * this.offset + this.cardHeight;
     this.pileContainer.position.set(
       this.rendererSize.x / 2 - pileContainerMaxWidth / 2,
       this.rendererSize.y / 2 - pileContainerMaxHeight / 2
@@ -104,6 +109,7 @@ export default class CardsScene extends BaseScene {
   public destroy(options) {
     TweenMax.killAll();
     this.stats.destroy();
+    this.spriteSheet.destroy();
     clearTimeout(this.timer);
     removeAndDestroyAllChildren(this.leftPile, options);
     removeAndDestroyAllChildren(this.rightPile, options);

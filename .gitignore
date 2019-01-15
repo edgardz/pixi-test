@@ -10,8 +10,5 @@ sketch
 # Node & Npm
 node_modules
 
-# Builds
-/build
-
 # Dot Env
 .env

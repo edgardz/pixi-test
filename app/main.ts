@@ -27,7 +27,7 @@ export default class MainApplication extends Application {
       backgroundColor: colors.white,
       autoResize: true,
       antialias: false,
-      resolution: window.devicePixelRatio
+      resolution: Math.min(2, window.devicePixelRatio)
       // forceCanvas: true // debug
     });
 

@@ -1,6 +1,6 @@
 # PixiJS Test Project
 
-Test project usong PixiJS, Typescript, Webpack and NPM.
+Test project using PixiJS, Typescript, Webpack and NPM.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ npm v6.5.0
 
 ## Installing
 
-Run from the project root:
+From the project root, run:
 
 ```
 npm install

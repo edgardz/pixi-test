@@ -28,6 +28,7 @@ export default class MainApplication extends Application {
       autoResize: true,
       antialias: true,
       resolution: window.devicePixelRatio
+      // forceCanvas: true // debug
     });
 
     document.querySelector('#app').appendChild(this.view);

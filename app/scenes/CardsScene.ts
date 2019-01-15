@@ -77,7 +77,7 @@ export default class CardsScene extends BaseScene {
     TweenMax.to(card.position, this.speed, {
       x: containerOffset,
       y: this.offset * i,
-      ease: Linear.easeNone /* Easy to enable easing. Out of scope? */
+      ease: Linear.easeNone /* Easy to enable easing. Is it out of scope? */
     });
     TweenMax.delayedCall(this.speed * 0.5, () => {
       containerB.addChild(card);

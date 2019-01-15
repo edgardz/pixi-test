@@ -12,6 +12,7 @@ export default class LoadingScene extends BaseScene {
 
     loader
       .add('cards', require('../assets/cards.png'))
+      .add('icons', require('../assets/icons.png'))
       .add('fire', require('../assets/fire.png'))
       .on('progress', this.onProgress)
       .load(this.onComplete);

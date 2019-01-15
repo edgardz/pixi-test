@@ -26,7 +26,7 @@ export default class MainApplication extends Application {
     super(window.innerWidth, window.innerHeight, {
       backgroundColor: colors.white,
       autoResize: true,
-      antialias: true,
+      antialias: false,
       resolution: window.devicePixelRatio
       // forceCanvas: true // debug
     });

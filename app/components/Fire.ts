@@ -25,19 +25,12 @@ export default class Fire extends Container {
   }
 
   emitParticle = () => {
-    let particle = this.children.find(particle => !particle['animating']) as extras.AnimatedSprite;
-
-    if (!particle) {
-      if (this.children.length >= this.maxParticles) {
-        return;
-      }
-      particle = new extras.AnimatedSprite(this.frames);
-      particle.animationSpeed = 1.4 / this.duration;
-      particle.anchor.set(0.5, 1);
-      particle.blendMode = BLEND_MODES.ADD;
-      particle.gotoAndPlay(Math.random() * this.frames.length);
-      this.addChild(particle);
-    }
+    // note: somehow destroying particles turned out to be more efficient than reusing them
+    const particle = new extras.AnimatedSprite(this.frames);
+    particle.animationSpeed = 1.4 / this.duration;
+    particle.anchor.set(0.5, 1);
+    particle.blendMode = BLEND_MODES.ADD;
+    particle.gotoAndPlay(Math.random() * this.frames.length);
 
     particle.alpha = 0;
     particle.position.set(0, 0);
@@ -46,12 +39,13 @@ export default class Fire extends Container {
 
     const scale = particle.scale.y;
 
-    if (particle['timeline']) {
-      particle['timeline'].kill();
-    }
-    particle['animating'] = true;
-    particle['timeline'] = new TimelineMax({ onComplete: () => (particle['animating'] = false) });
-    particle['timeline']
+    const timeline = new TimelineMax({
+      onComplete: () => {
+        this.removeChild(particle);
+        particle.destroy(false);
+      }
+    });
+    timeline
       .to(particle.position, this.duration, { y: -this.size * 0.5, ease: Power4.easeIn }, 0)
       .to(particle, this.duration / 2, { alpha: 0.1 + Math.random() * 0.3 }, 0)
       .to(particle, this.duration / 3, { alpha: 0, ease: Power4.easeIn }, this.duration / 2)
@@ -64,6 +58,8 @@ export default class Fire extends Container {
         },
         0
       );
+
+    this.addChild(particle);
   };
 
   public destroy(options?: boolean | DestroyOptions) {

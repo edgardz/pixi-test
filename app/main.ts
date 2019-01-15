@@ -2,10 +2,10 @@ import { Application, Container } from 'pixi.js';
 
 import BaseScene from './scenes/BaseScene';
 import MenuScene from './scenes/MenuScene';
+import FireScene from './scenes/FireScene';
 import CardsScene from './scenes/CardsScene';
 import LoadingScene from './scenes/LoadingScene';
-import RichTextScene from './scenes/RichTextScene';
-import ParticlesScene from './scenes/ParticlesScene';
+import DecoratedTextScene from './scenes/DecoratedTextScene';
 
 import { colors } from './utils/constants';
 import usePassiveEvent from './utils/use-passive-event';
@@ -16,10 +16,10 @@ export default class MainApplication extends Application {
 
   scenes = {
     menu: MenuScene,
+    fire: FireScene,
     cards: CardsScene,
     loading: LoadingScene,
-    richText: RichTextScene,
-    particles: ParticlesScene
+    decoratedText: DecoratedTextScene
   };
 
   constructor() {

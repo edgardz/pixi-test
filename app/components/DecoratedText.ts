@@ -3,7 +3,7 @@ import { TextStyleOptions, Texture, Container, Text, Sprite, DisplayObject } fro
 import { colors } from '../utils/constants';
 import removeAndDestroyAllChildren from '../utils/remove-and-destroy-all-children';
 
-export default class RichText extends Container {
+export default class DecoratedText extends Container {
   currentOptions: TextStyleOptions;
   defaultOptions: TextStyleOptions = {
     fontFamily: 'Arial',

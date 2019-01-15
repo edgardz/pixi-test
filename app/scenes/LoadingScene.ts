@@ -27,7 +27,7 @@ export default class LoadingScene extends BaseScene {
   }
 
   onProgress = loader => {
-    this.copy.text = `${loader.progress}%`;
+    this.copy.text = `${Math.round(loader.progress)}%`;
     this.resize();
   };
 

@@ -14,9 +14,9 @@ export default class MenuScene extends BaseScene {
   constructor(app) {
     super(app, false);
 
-    this.cardsButton = new CtaButton('Cards Scene');
-    this.richTextButton = new CtaButton('Rich Text Scene');
-    this.particlesButton = new CtaButton('Particles Scene');
+    this.cardsButton = new CtaButton('Pile of Cards');
+    this.richTextButton = new CtaButton('Decorated Text');
+    this.particlesButton = new CtaButton('Fire Effect');
 
     this.buttonContainer = new Container();
     this.buttonContainer.addChild(this.cardsButton);
@@ -24,8 +24,8 @@ export default class MenuScene extends BaseScene {
     this.buttonContainer.addChild(this.particlesButton);
 
     this.cardsButton.on('pointerup', () => this.app.setActiveScene(this.app.scenes.cards));
-    this.richTextButton.on('pointerup', () => this.app.setActiveScene(this.app.scenes.richText));
-    this.particlesButton.on('pointerup', () => this.app.setActiveScene(this.app.scenes.particles));
+    this.richTextButton.on('pointerup', () => this.app.setActiveScene(this.app.scenes.decoratedText));
+    this.particlesButton.on('pointerup', () => this.app.setActiveScene(this.app.scenes.fire));
 
     this.addChild(this.buttonContainer);
   }

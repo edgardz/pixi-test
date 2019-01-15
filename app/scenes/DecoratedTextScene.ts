@@ -2,13 +2,13 @@ import { loader, Spritesheet, Texture } from 'pixi.js';
 
 import BaseScene from './BaseScene';
 
-import RichText from '../components/RichText';
+import DecoratedText from '../components/DecoratedText';
 import shuffleArray from '../utils/shuffle-array';
 import { colors } from '../utils/constants';
 
-export default class RichTextScene extends BaseScene {
+export default class DecoratedTextScene extends BaseScene {
   spriteSheet: Spritesheet;
-  richText: RichText;
+  richText: DecoratedText;
   interval: any;
   icons: Texture[];
   copies: string[] = [
@@ -33,7 +33,7 @@ export default class RichTextScene extends BaseScene {
     this.spriteSheet = new Spritesheet(loader.resources['icons'].texture.baseTexture, require('../assets/icons.json'));
     this.spriteSheet.parse(() => {
       this.icons = Object.keys(this.spriteSheet.textures).map(key => this.spriteSheet.textures[key]);
-      this.richText = new RichText();
+      this.richText = new DecoratedText();
       this.interval = setInterval(this.randomize, 2000);
       this.addChild(this.richText);
       this.randomize();

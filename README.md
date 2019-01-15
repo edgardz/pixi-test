@@ -1,6 +1,6 @@
 # PixiJS Test Project
 
-Test project using PixiJS, Typescript, Webpack and NPM.
+Test project using PixiJS, Typescript, Webpack and NPM.  
 See a working web version on: http://pixi-test.edgardz.com/
 
 ## Prerequisites

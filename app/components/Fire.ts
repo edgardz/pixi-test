@@ -4,46 +4,66 @@ import removeAndDestroyAllChildren from '../utils/remove-and-destroy-all-childre
 
 export default class Fire extends Container {
   spriteSheet: Spritesheet;
+  duration: number;
   interval: any;
   size: number;
-  time: number;
 
   frames: Texture[] = [];
   maxParticles: number = 10;
 
-  constructor(size: number = 100, time: number = 3) {
+  constructor(size: number = 100, duration: number = 4) {
     super();
     this.size = size;
-    this.time = time;
+    this.duration = duration;
+    this.interactiveChildren = false;
     this.spriteSheet = new Spritesheet(loader.resources['fire'].texture.baseTexture, require('../assets/fire.json'));
     this.spriteSheet.parse(() => {
       this.frames = Object.keys(this.spriteSheet.textures).map(key => this.spriteSheet.textures[key]);
-      this.interval = setInterval(this.emitParticle, (this.time * 1000) / this.maxParticles);
+      // this.frames = [Texture.WHITE]; //debug
+      this.interval = setInterval(this.emitParticle, (this.duration * 1000) / this.maxParticles + 1);
     });
   }
 
   emitParticle = () => {
-    const particle = new extras.AnimatedSprite(this.frames);
-    particle.animationSpeed = 1.4 / this.time;
-    particle.anchor.set(0.5, 1);
-    particle.alpha = 0;
-    particle.width = particle.height = this.size;
-    particle.blendMode = BLEND_MODES.ADD;
-    particle.gotoAndPlay(Math.random() * this.frames.length);
+    let particle = this.children.find(particle => !particle['animating']) as extras.AnimatedSprite;
 
-    const timeline = new TimelineMax({
-      onComplete: () => {
-        particle.parent.removeChild(particle);
-        particle.destroy();
+    if (!particle) {
+      if (this.children.length >= this.maxParticles) {
+        return;
       }
-    });
-    timeline
-      .to(particle.position, this.time, { y: -150, ease: Power4.easeIn }, 0)
-      .to(particle, this.time / 2, { alpha: 0.2 + Math.random() * 0.2 }, 0)
-      .to(particle, this.time / 2, { alpha: 0 }, this.time / 2)
-      .to(particle.scale, this.time, { x: 0.5 + Math.random(), y: 1 + Math.random() }, 0);
+      particle = new extras.AnimatedSprite(this.frames);
+      particle.animationSpeed = 1.4 / this.duration;
+      particle.anchor.set(0.5, 1);
+      particle.blendMode = BLEND_MODES.ADD;
+      particle.gotoAndPlay(Math.random() * this.frames.length);
+      this.addChild(particle);
+    }
 
-    this.addChild(particle);
+    particle.alpha = 0;
+    particle.position.set(0, 0);
+    particle.width = this.size * 1.5;
+    particle.height = this.size;
+
+    const scale = particle.scale.y;
+
+    if (particle['timeline']) {
+      particle['timeline'].kill();
+    }
+    particle['animating'] = true;
+    particle['timeline'] = new TimelineMax({ onComplete: () => (particle['animating'] = false) });
+    particle['timeline']
+      .to(particle.position, this.duration, { y: -this.size * 0.5, ease: Power4.easeIn }, 0)
+      .to(particle, this.duration / 2, { alpha: 0.1 + Math.random() * 0.3 }, 0)
+      .to(particle, this.duration / 3, { alpha: 0, ease: Power4.easeIn }, this.duration / 2)
+      .to(
+        particle.scale,
+        this.duration,
+        {
+          x: scale * (0.3 + Math.random() * 0.5),
+          y: scale * (1.0 + Math.random() * 0.5)
+        },
+        0
+      );
   };
 
   public destroy(options?: boolean | DestroyOptions) {

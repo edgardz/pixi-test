@@ -30,8 +30,8 @@ export default class ParticlesScene extends BaseScene {
     super.resize();
     this.bg.width = this.rendererSize.width;
     this.bg.height = this.rendererSize.height;
-    this.fire.size = Math.min(this.rendererSize.width, this.rendererSize.height);
-    this.fire.position.set(this.rendererSize.width / 2, this.rendererSize.height / 2 + this.fire.size / 2);
+    this.fire.size = Math.min(this.rendererSize.width, this.rendererSize.height) * 0.6;
+    this.fire.position.set(this.rendererSize.width / 2, this.rendererSize.height);
   }
 
   public destroy(options) {
